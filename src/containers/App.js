@@ -25,29 +25,27 @@ class App extends Component {
 	}
 
 	render() {
-		const filteredRobots = this.state.robots.filter(robot =>{
-			return robot.name.toLowerCase().includes(this.state.searchfield.toLowerCase());
+		const {robots, searchfield} = this.state;
+		const filteredRobots = robots.filter(robot =>{
+			return robot.name.toLowerCase().includes(searchfield.toLowerCase());
 		})
-		if (this.state.robots.length === 0) {
-			return <h1>Loading...</h1>
-		} else {
-			return (
-				<div className='tc'>
-					<h1 className='f1'>RoboFriends</h1>
-					<Searchbox searchChange={this.onSearchChange}/>
-					<Scroll>
-					<Cardlist robots = {filteredRobots} />
-					</Scroll>
-				</div>
-			);
-		}
-	
+			return !robots.length ?
+			<h1>Loading...</h1> :
+		(
+			<div className='tc'>
+				<h1 className='f1'>RoboFriends</h1>
+				<Searchbox searchChange={this.onSearchChange}/>
+				<Scroll>
+				<Cardlist robots = {filteredRobots} />
+				</Scroll>
+			</div>
+		);
 	}
 }
 
 export default App;
 
-// /*RULE
+//*RULE
 // PROPS are simply things that come out of STATE 
 // so a parent feeds state into a child component and as soon as the 
 // child components component a state it's a property
